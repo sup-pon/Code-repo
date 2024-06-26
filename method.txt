@@ -1,0 +1,12 @@
+@And("i create new visitation determination record")
+	public void i_create_new_visitation_determination_record() throws IOException {
+		appCommonSteps.i_navigate_to_current_using_url("folio");
+        setPageName("view folio");
+		logger.info("----user entering new Visitation Determination Record----");
+		commonSteps.click_element("Show more actions", "button");
+		commonSteps.click_element("New Visitation Determination", "button");
+	    commonSteps.select_radiobutton_checkbox("foliopersonallCheckbox", "checkbox");
+	    commonSteps.click_element("Next", "button");
+	    commonSteps.verify_element_on_page("Visitation Determination Records are created.","textContains");
+	    commonSteps.click_element("Complete", "button");
+	}
