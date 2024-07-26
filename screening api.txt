@@ -14,7 +14,9 @@ client-Secret = C7EEB59AD75E30CA51237D4B0D8367D43A4F7659CAD46568D573D5A06FD7BDCC
 After replacing all the above mentioned details , url should look like below
 https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5wgDfbhzZg7OPW.a26.20dS00KSRDveVd.FppBUwUK84iYJi.k0bvc1DZwX&client_secret=9B361599BF57CC01E1A50391A46CF8049ACFF3D326BA365590F9D1D9853166B0&code=aPrx_RSN_V4fQF7bhmVk8CeZo9VSFrJLIhl7QDDbT9lTeUb7aVxCRaVIA3vhvsY7tgRNh78uHQ%3D%3D&redirect_uri=https://localhost.com
 
-new url: https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&client_secret=C7EEB59AD75E30CA51237D4B0D8367D43A4F7659CAD46568D573D5A06FD7BDCC&code=aPrx_RSN_V4fQF7bhmVk8CeZo9VSFrJLIhl7QDDbT9lTeUb7aVxCRaVIA3vhvsY7tgRNh78uHQ%3D%3D&redirect_uri=https://localhost.com
+got code: code=aPrx_RSN_V4fQF7bhmVk8CeZo0Bm52d0WmmefsiqQL0o6QmNYxq6vajrsCd97ISwMnK0Ro8evg%3D%3D
+
+new url: https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&client_secret=C7EEB59AD75E30CA51237D4B0D8367D43A4F7659CAD46568D573D5A06FD7BDCC&code=aPrx_RSN_V4fQF7bhmVk8CeZo0Bm52d0WmmefsiqQL0o6QmNYxq6vajrsCd97ISwMnK0Ro8evg%3D%3D&redirect_uri=https://localhost.com
 
 
 3. After token is generated from above, place it in postman under 'Authorization' and select Type = Bearer token. Place below in POST 
