@@ -1,8 +1,12 @@
 1. Get a code: Login as trigger user and paste below in a new tab to get code
 
-https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5wgDfbhzZg7OPW.a26.20dS00KSRDveVd.FppBUwUK84iYJi.k0bvc1DZwX&redirect_uri=https://localhost.com
+https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&redirect_uri=https://localhost.com
 #TriggertableEmail_V1 = Auto_Trigger_User@osi.ca.gov
 #TriggertablePWD_V1 = Cares@4013475633
+Please find attached document for steps on generation screening id using postman.
+Client-id = 3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3
+client-Secret = C7EEB59AD75E30CA51237D4B0D8367D43A4F7659CAD46568D573D5A06FD7BDCC
+
 
 2. Using access code generated from above in browser (for example: 'aPrx_RSN_V4fQF7bhmVk8CeZo44CSiG.GHma4d92gGEoBs66Kg0BxnBkXLPj09aus0faixBWxg%3D%3D' ) generate access token. Replace consumer key, client id, code in below url to get access token.
  {{url}}/services/oauth2/token?grant_type=authorization_code&client_id={{consumer key}}&client_secret={{consumer secret}}&code={{access code}}&redirect_uri={{SalesforceRedirectUri_V1}}
