@@ -1,0 +1,36 @@
+1. Get a code: Login as trigger user and paste below in a new tab to get code
+
+https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5wgDfbhzZg7OPW.a26.20dS00KSRDveVd.FppBUwUK84iYJi.k0bvc1DZwX&redirect_uri=https://localhost.com
+#TriggertableEmail_V1 = Auto_Trigger_User@osi.ca.gov
+#TriggertablePWD_V1 = Cares@4013475633
+
+2. Using access code generated from above in browser (for example: 'aPrx_RSN_V4fQF7bhmVk8CeZo44CSiG.GHma4d92gGEoBs66Kg0BxnBkXLPj09aus0faixBWxg%3D%3D' ) generate access token. Replace consumer key, client id, code in below url to get access token.
+ {{url}}/services/oauth2/token?grant_type=authorization_code&client_id={{consumer key}}&client_secret={{consumer secret}}&code={{access code}}&redirect_uri={{SalesforceRedirectUri_V1}}
+After replacing all the above mentioned details , url should look like below
+https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5wgDfbhzZg7OPW.a26.20dS00KSRDveVd.FppBUwUK84iYJi.k0bvc1DZwX&client_secret=9B361599BF57CC01E1A50391A46CF8049ACFF3D326BA365590F9D1D9853166B0&code=aPrx_RSN_V4fQF7bhmVk8CeZo9VSFrJLIhl7QDDbT9lTeUb7aVxCRaVIA3vhvsY7tgRNh78uHQ%3D%3D&redirect_uri=https://localhost.com
+
+
+3. After token is generated from above, place it in postman under 'Authorization' and select Type = Bearer token. Place below in POST 
+https://cacwds--v1sit.sandbox.my.salesforce.com/services/data/v58.0/sobjects/Screening__c
+#### put below in body ####
+{
+    "Call_Narrative__c": "Mathilde Strosin - The AI protocol is down, index the mobile driver so we can parse the AI system! hacking the sensor won't do anything, we need to transmit the optical PNG program!",
+    "Caller_Type__c": "Anonymous",
+    "Stepper_Component_Map__c": "Caller Information=Completed;Add a Person=Not Started",
+    "Reason_for_the_Call__c": "Abuse/Neglect Referral",
+    "Date_and_Time__c": "2021-02-02T16:01:01.001Z",
+    "County_Of_Initial_Screening__c": "Fresno",
+    "Screening_Name__c": "The name of the Mom is Dorene Kohler"
+}
+
+
+4. Refresh token:
+
+https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id=3MVG9BiWFlgZEySWjz_weczaxR5wgDfbhzZg7OPW.a26.20dS00KSRDveVd.FppBUwUK84iYJi.k0bvc1DZwX&client_secret=9B361599BF57CC01E1A50391A46CF8049ACFF3D326BA365590F9D1D9853166B0&refresh_token=5Aep861YbQ2WNspBqH_5Ceopjo8.Xw0Ow0De0uZgUa8NjEtpM1L3xC5xWvp_LVw4lRKG9wU1zMQMeWXzJfPcTv4
+
+
+
+
+
+
+
