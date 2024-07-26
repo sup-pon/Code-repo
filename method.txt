@@ -13,3 +13,16 @@
 
 
 https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&client_secret= C7EEB59AD75E30CA51237D4B0D8367D43A4F7659CAD46568D573D5A06FD7BDCC &code=aPrx_RSN_V4fQF7bhmVk8CeZo9VSFrJLIhl7QDDbT9lTeUb7aVxCRaVIA3vhvsY7tgRNh78uHQ%3D%3D&redirect_uri=https://localhost.com
+
+https://cacwds--v1sit.sandbox.my.salesforce.com/services/data/v58.0/sobjects/Screening__c
+#### put below in body ####
+{
+    "Call_Narrative__c": "Mathilde Strosin - The AI protocol is down, index the mobile driver so we can parse the AI system! hacking the sensor won't do anything, we need to transmit the optical PNG program!",
+    "Caller_Type__c": "Anonymous",
+    "Stepper_Component_Map__c": "Caller Information=Completed;Add a Person=Not Started",
+    "Reason_for_the_Call__c": "Abuse/Neglect Referral",
+    "Date_and_Time__c": "2021-02-02T16:01:01.001Z",
+    "County_Of_Initial_Screening__c": "Fresno",
+    "Screening_Name__c": "The name of the Mom is Dorene Kohler"
+}
+
