@@ -1,1 +1,79 @@
 https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&redirect_uri=https://localhost.com
+
+APITestNGCommon
+package api_tests.testng.common;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.io.File;
+
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+
+import APIUtilities.APIHelpers.APIController;
+import ReportUtilities.Common.ReportCommon;
+import InitializeScripts.InitializeTestSettings;
+import ReportUtilities.Model.TestCaseParam;
+import ReportUtilities.Model.ExtentModel.PageDetails;
+import TestSettings.TestRunSettings;
+import APIUtilities.Models.APIReportModel;
+import APIUtilities.TestSettings.APITestSettings;
+import APIUtilities.Reports.ExtentReport;
+
+public class APITestNGCommon {
+
+	
+	@BeforeSuite
+    public static void testrunsetup() throws Exception
+    {
+	
+		  Path currentRelativePath = Paths.get(""); 
+		  String prjPath=currentRelativePath.toAbsolutePath().toString();
+
+		  
+			InitializeTestSettings initObj = new InitializeTestSettings();
+			initObj.LoadConfigData(prjPath);
+			initObj.LoadAPIConfig(prjPath);
+
+			
+			ExtentReport extentReport = new ExtentReport();
+			extentReport.StartReport(TestRunSettings.ResultsPath,"API", TestRunSettings.Environment,"API");
+		
+    }
+	
+	
+	public void executeAPI(TestCaseParam testCaseParam,  String apiname,String apimodulename,String apifilename) throws Exception
+    {
+
+		String filePath = APITestSettings.apiTestSettings.APIDirectory + File.separator + apifilename;
+
+		APIController apiController = new APIController();
+		ArrayList<APIReportModel> reportData=apiController.ExecuteAPI(testCaseParam.TestCaseName,apimodulename,apiname,testCaseParam.Browser,String.valueOf(testCaseParam.Iteration),filePath);
+
+
+	         for(APIReportModel apiReportModel : reportData)
+	         {
+	        	 
+	        	 PageDetails pageDetails = new PageDetails();
+	        	 pageDetails.PageActionName=apiname;
+	        	 pageDetails.PageActionDescription=apiname;
+	        	 
+
+					ReportCommon testStepDetails = new ReportCommon();
+					testStepDetails.logAPIDetails( testCaseParam,  apiname, apiname,pageDetails, LocalDateTime.now(), apiReportModel.TestStepResult,apiReportModel.URL,apiReportModel.Request, apiReportModel.ActualResponse);
+
+	         }
+
+    }
+	
+	
+	@AfterSuite
+	public void endTestSuite()
+	{
+		ExtentReport extentReport = new ExtentReport();
+		extentReport.EndReport();
+	}
+}
+
