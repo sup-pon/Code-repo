@@ -77,3 +77,36 @@ public class APITestNGCommon {
 	}
 }
 
+[RemoteTestNG] detected TestNG version 7.4.0
+org.testng.TestNGException: 
+Cannot find class in classpath: api_tests.testng.booking.TestBookingNew
+	at org.testng.xml.XmlClass.loadClass(XmlClass.java:75)
+	at org.testng.xml.XmlClass.init(XmlClass.java:67)
+	at org.testng.xml.XmlClass.<init>(XmlClass.java:54)
+	at org.testng.xml.TestNGContentHandler.startElement(TestNGContentHandler.java:576)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.dtd.XMLDTDValidator.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:197)
+	at org.testng.xml.XMLParser.parse(XMLParser.java:39)
+	at org.testng.xml.SuiteXmlParser.parse(SuiteXmlParser.java:16)
+	at org.testng.xml.SuiteXmlParser.parse(SuiteXmlParser.java:9)
+	at org.testng.xml.Parser.parse(Parser.java:164)
+	at org.testng.xml.Parser.parse(Parser.java:250)
+	at org.testng.TestNG.parseSuite(TestNG.java:324)
+	at org.testng.TestNG.initializeSuitesAndJarFile(TestNG.java:376)
+	at org.testng.TestNG.initializeEverything(TestNG.java:1011)
+	at org.testng.remote.support.RemoteTestNG6_12.initialize(RemoteTestNG6_12.java:22)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:98)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+
