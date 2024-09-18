@@ -159,3 +159,77 @@ Cannot find class in classpath: api_tests.testng.booking.TestBookingNew
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 
+
+public void processLogin(TestCaseParam testCaseParam, String iterationNum) throws IOException, InterruptedException  {
+ 
+		PageDetails action = new PageDetails();
+		LocalDateTime startTime= LocalDateTime.now();
+		action.setPageActionName("Process Login");
+		action.setPageActionDescription("Process Login");
+ 
+		try {			
+			ExcelUtils.loadDataForTestScript("Login", TestRunSettings.getTestNGTestMethodName() ,iterationNum);
+			String userName = TestRunSettings.getExcelValue("LOGINUSER");
+			
+			String[] credentials = SalesforceConstants.getUserCredentials(userName);
+ 
+			Webkeywords.instance().navigate(driver,  TestRunSettings.getUrl(), testCaseParam,action);
+			Webkeywords.instance().setText(driver, txtUserName, credentials[0], testCaseParam,action);
+			Webkeywords.instance().setText(driver, txtPassword, credentials[1], testCaseParam,action);
+			
+			Webkeywords.instance().click(driver, btnLoginButton,"", testCaseParam,action);
+		
+			Webkeywords.instance().waitElementToBeVisibleNew(driver, txtcares, 2);
+			Webkeywords.instance().click(driver, txtcares, "", testCaseParam,action);
+ 
+			objcommonOperations.switchToLastTab(driver);
+			Webkeywords.instance().waitTitleContains(driver, "Home | Salesforce");
+			driver.switchTo().defaultContent();
+		}
+		catch (IOException e)
+		{
+			logger.error("Failed == {} ", action.getPageActionDescription());
+			exceptionDetails.logExceptionDetails(driver, testCaseParam, action.getPageActionName(), action.getPageActionDescription(), startTime,e);
+		} catch (FilloException e) {
+ 
+			logger.error(e.getMessage());
+		}
+has context menu
+
+----------------------------------------------------
+public void processLogin(TestCaseParam testCaseParam, String iteration) throws IOException, InterruptedException  {
+ 
+		PageDetails action = new PageDetails();
+		LocalDateTime startTime= LocalDateTime.now();
+		action.setPageActionName("Process Login");
+		action.setPageActionDescription("Process Login");
+		try {
+			Map<String, ArrayList<String>> testcaseDataSD;
+			testcaseDataSD = util.getScreenTCData(screenName, testCaseParam.getTestCaseName(),TestRunSettings.getTestDataPath(), TestRunSettings.getTestDataMappingFileName() ,TestRunSettings.getTestDataMappingSheetNameSd(),iteration);
+ 
+			String url = testcaseDataSD.get("URL").get(0);
+			String userName = testcaseDataSD.get("UserName").get(0);
+ 
+			String password = testcaseDataSD.get("Password").get(0);
+			String submitButton = testcaseDataSD.get("SubmitButton").get(0);
+ 
+			Webkeywords.instance().navigate(driver,  url, testCaseParam,action);
+			Webkeywords.instance().setText(driver, txtUserName, userName, testCaseParam,action);
+			Webkeywords.instance().setText(driver, txtPassword, password, testCaseParam,action);
+			Webkeywords.instance().click(driver, btnLoginButton,submitButton, testCaseParam,action);
+		
+			Webkeywords.instance().waitElementToBeVisibleNew(driver, selectApp, 2);
+			objcommonOperations.pageRefresh(driver);
+			Webkeywords.instance().click(driver, selectApp,"", testCaseParam,action);
+			
+			objcommonOperations.switchToLastTab(driver);
+			driver.switchTo().defaultContent();
+		}
+		catch (IOException e)
+		{
+			logger.error("Failed == {} ", action.getPageActionDescription());
+			exceptionDetails.logExceptionDetails(driver, testCaseParam, action.getPageActionName(), action.getPageActionDescription(), startTime,e);
+		}
+	}
+
+username: input[@id='input27']  password: input[@id='input35']
