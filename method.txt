@@ -59,3 +59,5 @@ https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type
         String updatedServiceURL = serviceURL.replace("access_code", code);
 
 https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&redirect_uri=https://localhost.com 
+
+https://localhost.com/?code=aPrx_RSN_V4fQF7bhmVk8CeZo9FsWrUwBe_034.HCMPBKHepiyRGN2nV0BMpaz6cVZwgemX3gg%3D%3D
