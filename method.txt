@@ -61,3 +61,27 @@ https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type
 https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&redirect_uri=https://localhost.com 
 
 https://localhost.com/?code=aPrx_RSN_V4fQF7bhmVk8CeZo9FsWrUwBe_034.HCMPBKHepiyRGN2nV0BMpaz6cVZwgemX3gg%3D%3D
+
+
+---------------------------------
+ChromeOptions options = new ChromeOptions();
+                    options.setAcceptInsecureCerts(true);
+                    options.addArguments("start-maximized"); // open Browser in maximized mode
+                    options.addArguments("disable-infobars"); // disabling infobars
+                    options.addArguments("--disable-extensions"); // disabling extensions
+                    options.addArguments("--disable-gpu"); // applicable to windows os only
+                    options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+                    options.addArguments("--no-sandbox"); // Bypass OS security model
+                    options.addArguments("--headless");
+                    options.addArguments("--window-size=2000,2000");
+                    //PDF configuration
+                    preferences.put("plugins.always_open_pdf_externally", true);
+                    preferences.put("profile.default_content_settings.popups", 0);
+                    preferences.put("download.default_directory", Path); // Set the path accordingly
+                    preferences.put("download.prompt_for_download", false);
+                    preferences.put("download.directory_upgrade", true);
+                    options.setExperimentalOption("prefs", preferences);
+                    DesiredCapabilities capability = new DesiredCapabilities();
+                    capability.setBrowserName("chrome");
+                    capability.setCapability(ChromeOptions.CAPABILITY, options);
+                    driver = new RemoteWebDriver(new URL(KeywordTestSettings.GridURL), capability);
