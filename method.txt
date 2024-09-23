@@ -58,3 +58,4 @@ https://cacwds--v1sit.sandbox.my.salesforce.com/services/oauth2/token?grant_type
  // Replace access_code with the value of the code variable
         String updatedServiceURL = serviceURL.replace("access_code", code);
 
+https://cacwds--v1sit.sandbox.lightning.force.com/services/oauth2/authorize?response_type=code&client_id=3MVG9BiWFlgZEySWjz_weczaxR5Y7tquQH16FrBh.ZLCUq9CMtAax1_WmZg6X.CxCR3jTbABMVIr9ru8VuVP3&redirect_uri=https://localhost.com 
