@@ -1,4 +1,11 @@
- headerData.put("Content-Type", "application/json");
+13:10:32.061 [main] INFO  apiutilities.apihelpers.RESTHelper - --------------------------Response--------------------------
+13:10:32.460 [main] DEBUG org.apache.http.wire -  << "9B[\r][\n]"
+13:10:32.460 [main] DEBUG org.apache.http.wire -  << "[{"message":"Unexpected character ('}' (code 125)): was expecting double-quote to start field name at [line:9, column:2]","errorCode":"JSON_PARSER_ERROR"}]"
+13:10:32.460 [main] DEBUG org.apache.http.wire -  << "[\r][\n]"
+13:10:32.460 [main] DEBUG org.apache.http.wire -  << "0[\r][\n]"
+13:10:32.460 [main] DEBUG org.apache.http.wire -  << "[\r][\n]"
+
+headerData.put("Content-Type", "application/json");
         headerData.put("Accept", "application/json");
 
 18:13:01.753 [main] ERROR apiutilities.apicommon.ExcelUtil - null web driver is not quit
