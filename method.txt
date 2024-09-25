@@ -175,3 +175,61 @@ private Map<String, String> getHeaderDataAuthorization() {
 					apiReportModels = extracted(testcase, moduleName,  iteration,  response,
 							iModel,  expectedResponse, apiReportModel);
 				}
+------------------------------------
+12:55:26.846 [main] DEBUG o.a.h.impl.client.DefaultHttpClient - Attempt 1 to execute request
+12:55:26.852 [main] DEBUG o.a.h.i.conn.DefaultClientConnection - Sending request: POST /services/data/v58.0/sobjects/Screening__c HTTP/1.1
+12:55:26.858 [main] DEBUG org.apache.http.wire -  >> "POST /services/data/v58.0/sobjects/Screening__c HTTP/1.1[\r][\n]"
+12:55:26.868 [main] DEBUG org.apache.http.wire -  >> "Authorization: Bearer 00D3S0000008hTo!ASAAQNJSaJreYrlp__mNyWGHcYiz7vOQg5NlnFdN40byyzCphxIhE_u8f2ISkUR_smIIUViFH56U.g609bmlEydQvJxIAehY[\r][\n]"
+12:55:26.875 [main] DEBUG org.apache.http.wire -  >> "Accept: */*[\r][\n]"
+12:55:26.879 [main] DEBUG org.apache.http.wire -  >> "Content-Type: application/json[\r][\n]"
+12:55:26.884 [main] DEBUG org.apache.http.wire -  >> "Content-Length: 260[\r][\n]"
+12:55:26.892 [main] DEBUG org.apache.http.wire -  >> "Host: cacwds--v1sit.sandbox.my.salesforce.com[\r][\n]"
+12:55:26.898 [main] DEBUG org.apache.http.wire -  >> "Connection: Keep-Alive[\r][\n]"
+12:55:26.904 [main] DEBUG org.apache.http.wire -  >> "User-Agent: Apache-HttpClient/4.5.9 (Java/11.0.17)[\r][\n]"
+12:55:26.909 [main] DEBUG org.apache.http.wire -  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+12:55:26.912 [main] DEBUG org.apache.http.wire -  >> "[\r][\n]"
+12:55:26.916 [main] DEBUG org.apache.http.headers - >> POST /services/data/v58.0/sobjects/Screening__c HTTP/1.1
+12:55:26.921 [main] DEBUG org.apache.http.headers - >> Authorization: Bearer 00D3S0000008hTo!ASAAQNJSaJreYrlp__mNyWGHcYiz7vOQg5NlnFdN40byyzCphxIhE_u8f2ISkUR_smIIUViFH56U.g609bmlEydQvJxIAehY
+12:55:26.925 [main] DEBUG org.apache.http.headers - >> Accept: */*
+12:55:26.930 [main] DEBUG org.apache.http.headers - >> Content-Type: application/json
+12:55:26.933 [main] DEBUG org.apache.http.headers - >> Content-Length: 260
+12:55:26.938 [main] DEBUG org.apache.http.headers - >> Host: cacwds--v1sit.sandbox.my.salesforce.com
+12:55:26.942 [main] DEBUG org.apache.http.headers - >> Connection: Keep-Alive
+12:55:26.945 [main] DEBUG org.apache.http.headers - >> User-Agent: Apache-HttpClient/4.5.9 (Java/11.0.17)
+12:55:26.948 [main] DEBUG org.apache.http.headers - >> Accept-Encoding: gzip,deflate
+12:55:26.953 [main] DEBUG org.apache.http.wire -  >> "{[\r][\n]"
+12:55:26.957 [main] DEBUG org.apache.http.wire -  >> "[0x9]"Call_Narrative__c": "Jim",[\r][\n]"
+12:55:26.957 [main] DEBUG org.apache.http.wire -  >> "[0x9]"Caller_Type__c": "Brown",[\r][\n]"
+12:55:26.964 [main] DEBUG org.apache.http.wire -  >> "[0x9]"Stepper_Component_Map__c": "111" ,[\r][\n]"
+12:55:26.969 [main] DEBUG org.apache.http.wire -  >> "[0x9]"Reason_for_the_Call__c": "true",[\r][\n]"
+12:55:26.974 [main] DEBUG org.apache.http.wire -  >> "[0x9]"Date_and_Time__c": "2023-03-01",[\r][\n]"
+12:55:26.977 [main] DEBUG org.apache.http.wire -  >> "[0x9]"County_Of_Initial_Screening__c": "admin",[\r][\n]"
+12:55:26.982 [main] DEBUG org.apache.http.wire -  >> "    "Screening_Name__c": "password123" ,[\r][\n]"
+12:55:26.985 [main] DEBUG org.apache.http.wire -  >> "}"
+12:55:27.122 [main] DEBUG org.apache.http.wire -  << "HTTP/1.1 400 Bad Request[\r][\n]"
+12:55:27.126 [main] DEBUG org.apache.http.wire -  << "Date: Wed, 25 Sep 2024 07:25:26 GMT[\r][\n]"
+12:55:27.131 [main] DEBUG org.apache.http.wire -  << "Set-Cookie: CookieConsentPolicy=0:1; path=/; expires=Thu, 25-Sep-2025 07:25:27 GMT; Max-Age=31536000; secure[\r][\n]"
+12:55:27.138 [main] DEBUG org.apache.http.wire -  << "Set-Cookie: LSKey-c$CookieConsentPolicy=0:1; path=/; expires=Thu, 25-Sep-2025 07:25:27 GMT; Max-Age=31536000; secure[\r][\n]"
+12:55:27.144 [main] DEBUG org.apache.http.wire -  << "Strict-Transport-Security: max-age=63072000; includeSubDomains[\r][\n]"
+12:55:27.148 [main] DEBUG org.apache.http.wire -  << "X-Content-Type-Options: nosniff[\r][\n]"
+12:55:27.152 [main] DEBUG org.apache.http.wire -  << "X-Robots-Tag: none[\r][\n]"
+12:55:27.158 [main] DEBUG org.apache.http.wire -  << "Cache-Control: no-cache,must-revalidate,max-age=0,no-store,private[\r][\n]"
+12:55:27.165 [main] DEBUG org.apache.http.wire -  << "Set-Cookie: BrowserId=Vg6hrnsPEe-Ac4kubilCog; domain=.salesforce.com; path=/; expires=Thu, 25-Sep-2025 07:25:27 GMT; Max-Age=31536000; secure; SameSite=None[\r][\n]"
+12:55:27.170 [main] DEBUG org.apache.http.wire -  << "Sforce-Limit-Info: api-usage=25524/28850000[\r][\n]"
+12:55:27.174 [main] DEBUG org.apache.http.wire -  << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+12:55:27.178 [main] DEBUG org.apache.http.wire -  << "Transfer-Encoding: chunked[\r][\n]"
+12:55:27.183 [main] DEBUG org.apache.http.wire -  << "[\r][\n]"
+12:55:27.188 [main] DEBUG o.a.h.i.conn.DefaultClientConnection - Receiving response: HTTP/1.1 400 Bad Request
+12:55:27.192 [main] DEBUG org.apache.http.headers - << HTTP/1.1 400 Bad Request
+12:55:27.194 [main] DEBUG org.apache.http.headers - << Date: Wed, 25 Sep 2024 07:25:26 GMT
+12:55:27.197 [main] DEBUG org.apache.http.headers - << Set-Cookie: CookieConsentPolicy=0:1; path=/; expires=Thu, 25-Sep-2025 07:25:27 GMT; Max-Age=31536000; secure
+12:55:27.201 [main] DEBUG org.apache.http.headers - << Set-Cookie: LSKey-c$CookieConsentPolicy=0:1; path=/; expires=Thu, 25-Sep-2025 07:25:27 GMT; Max-Age=31536000; secure
+12:55:27.205 [main] DEBUG org.apache.http.headers - << Strict-Transport-Security: max-age=63072000; includeSubDomains
+12:55:27.208 [main] DEBUG org.apache.http.headers - << X-Content-Type-Options: nosniff
+12:55:27.210 [main] DEBUG org.apache.http.headers - << X-Robots-Tag: none
+12:55:27.213 [main] DEBUG org.apache.http.headers - << Cache-Control: no-cache,must-revalidate,max-age=0,no-store,private
+12:55:27.216 [main] DEBUG org.apache.http.headers - << Set-Cookie: BrowserId=Vg6hrnsPEe-Ac4kubilCog; domain=.salesforce.com; path=/; expires=Thu, 25-Sep-2025 07:25:27 GMT; Max-Age=31536000; secure; SameSite=None
+12:55:27.220 [main] DEBUG org.apache.http.headers - << Sforce-Limit-Info: api-usage=25524/28850000
+12:55:27.223 [main] DEBUG org.apache.http.headers - << Content-Type: application/json;charset=UTF-8
+12:55:27.226 [main] DEBUG org.apache.http.headers - << Transfer-Encoding: chunked
+12:55:27.237 [main] DEBUG o.a.h.impl.client.DefaultHttpClient - Connection can be kept alive indefinitely
