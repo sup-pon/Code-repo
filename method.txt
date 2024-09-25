@@ -137,3 +137,26 @@ ChromeOptions options = new ChromeOptions();
                     capability.setBrowserName("chrome");
                     capability.setCapability(ChromeOptions.CAPABILITY, options);
                     driver = new RemoteWebDriver(new URL(KeywordTestSettings.GridURL), capability);
+
+------------------------------------------------
+private Map<String, String> getHeaderDataAuthorization() {
+		Map<String, String> headerData = new HashMap<>();
+
+		try {
+			// Set the Authorization header with the Bearer token
+			headerData.put("Authorization", "Bearer " + PrjConstants.getBearerToken());
+
+			// You can add more headers if needed
+		//	headerData.put("Content-Type", "application/json");
+		//	headerData.put("Accept", "application/json");
+
+		} catch (Exception e) {
+			logger.error("Error while setting the header data: {}", e.getMessage());
+		}
+
+		return headerData;
+	}
+	Map<String, String> headerData = getHeaderDataAuthorization();
+	Map<String, String> headerData = getHeaderDataAuthorization();
+
+
