@@ -1,3 +1,21 @@
+15:47:32.228 [main] INFO  apiutilities.apihelpers.RESTHelper - {
+	"Role__c" : "Alleged Victim",
+	"First_Name__c" : "Alex",
+	"Last_Name__c" : "Hopper",
+	"Screening__c" : 
+}
+15:47:32.228 [main] INFO  apiutilities.apihelpers.RESTHelper - --------------------------Response--------------------------
+15:47:32.230 [main] DEBUG org.apache.http.wire -  << "7D[\r][\n]"
+15:47:32.230 [main] DEBUG org.apache.http.wire -  << "[{"message":"Unexpected character ('}' (code 125)): expected a value at [line:6, column:2]","errorCode":"JSON_PARSER_ERROR"}]"
+15:47:32.230 [main] DEBUG org.apache.http.wire -  << "[\r][\n]"
+15:47:32.230 [main] DEBUG org.apache.http.wire -  << "0[\r][\n]"
+15:47:32.230 [main] DEBUG org.apache.http.wire -  << "[\r][\n]"
+15:47:32.230 [main] DEBUG o.a.h.i.c.BasicClientConnectionManager - Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@7df5549e
+15:47:32.230 [main] DEBUG o.a.h.i.c.BasicClientConnectionManager - Connection can be kept alive indefinitely
+PASSED: createToken
+
+
+
 13:10:32.061 [main] INFO  apiutilities.apihelpers.RESTHelper - --------------------------Response--------------------------
 13:10:32.460 [main] DEBUG org.apache.http.wire -  << "9B[\r][\n]"
 13:10:32.460 [main] DEBUG org.apache.http.wire -  << "[{"message":"Unexpected character ('}' (code 125)): was expecting double-quote to start field name at [line:9, column:2]","errorCode":"JSON_PARSER_ERROR"}]"
