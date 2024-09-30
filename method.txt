@@ -1,3 +1,19 @@
+{
+	"Call_Narrative__c": "Creating a record using API",
+	"Caller_Type__c": "Anonymous",
+	"Stepper_Component_Map__c": "Caller Information=Completed;Add a Person=Not Started" ,
+	"Reason_for_the_Call__c": "Abuse/Neglect Referral",
+	"Date_and_Time__c": "2021-02-02T16:01:01.001Z",
+	"County_Of_Initial_Screening__c": "Fresno",
+    "Screening_Name__c": "Creating a record using API" ,
+	"OwnerId" : "0053S0000012hHPQAY"
+}
+
+	if(request.contains("Screening__c"))
+			{
+			request = request.replace("SCREENING_ID", PrjConstants.getScreeningId());
+			}
+
 aPrx_RSN_V4fQF7bhmVk8CeZoz4lgV.6hHC_n3TQEchb9.
 7jFfsxKQvKj1A9Ww2IEywyN1bOrQ%3D%3D
 https://localhost.com/?code=aPrx_RSN_V4fQF7bhmVk8CeZowp
