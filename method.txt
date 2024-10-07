@@ -1,3 +1,21 @@
+	WebDriver driver = null;
+		DesiredCapabilities cap= new  DesiredCapabilities();
+		cap.setCapability("browserVersion", "128.0");
+		cap.setCapability("browserName", "chrome");
+		cap.setCapability("platformName", "linux");
+		ChromeOptions options= new ChromeOptions();
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-dev-shm-usage");
+		
+			try {
+				driver=new RemoteWebDriver(new URL("https://seleniumgrid.qatools.cdicares.net"),cap);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return driver;
+
+
 https://localhost.com/?code=aPrx_RSN_V4fQF7bhmVk8CeZo22L6OqNE1BuGWpTy.dXjEL5D5rKUUtWmQf6pUOa9OsLbFVsfQ%3D%3D
 https://localhost.com/?code=aPrx_RSN_V4fQF7bhmVk8CeZo5APuKyvG.TMs15AL_TN6M6gWPW1PaDg1A0.REmEJAjt2yC5LQ%3D%3D
 {
