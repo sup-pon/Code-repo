@@ -1,0 +1,263 @@
+package uitests.testng.milestone3;
+
+import java.lang.reflect.Method;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;	
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import cares.cwds.salesforce.constants.SalesforceConstants;
+import cares.cwds.salesforce.pom.ApprovalandAuditHistory;
+import cares.cwds.salesforce.pom.Home;
+import cares.cwds.salesforce.pom.Login;
+import cares.cwds.salesforce.pom.Logout;
+import cares.cwds.salesforce.pom.RecallAndResubmitRecord;
+import cares.cwds.salesforce.pom.SubmitForApproval;
+import cares.cwds.salesforce.pom.SupervisorReviewPromotion;
+import cares.cwds.salesforce.pom.screening.Documents;
+import cares.cwds.salesforce.pom.screening.ERRDoc;
+import cares.cwds.salesforce.pom.screening.ScreeningApproval;
+import cares.cwds.salesforce.pom.screening.ScreeningContactLog;
+import cares.cwds.salesforce.pom.screening.ScreeningDetails;
+import cares.cwds.salesforce.pom.screening.ScreeningPerson;
+import cares.cwds.salesforce.pom.screening.ScreeningTribalInquiry;
+import cares.cwds.salesforce.pom.screening.ScreeningValidatePerson;
+import cares.cwds.salesforce.pom.screening.ScreeningsPage;
+import cares.cwds.salesforce.web.utilities.CustomException;
+import cares.cwds.salesforce.web.utilities.SalesforceCommon;
+import testsettings.TestRunSettings;
+import uitests.testng.common.TestNGCommon;
+
+public class T2922 extends TestNGCommon {
+	String testCaseName = "To validate screening";
+	String moduleName = "SD";
+	String fileName = "ScriptMasterSheet"; 
+   
+    
+    public T2922(){
+    	
+    	/*This method is initially left blank for now*/
+    }
+    
+    @BeforeMethod
+    public void setUpReport() throws InterruptedException
+    {
+    	driver = TestRunSettings.getDriver();
+        browser = TestRunSettings.getBrowser();
+        testCaseParam.setTestCaseName(testCaseName);
+        testCaseParam.setModuleName(moduleName);
+        testCaseParam.setBrowser(browser);
+        testCaseParam.setTestCaseDescription(testCaseParam.getTestCaseName());
+        initializeTestCase(testCaseParam);
+    }
+    
+    
+    
+    @Test (dataProvider = "data-provider")
+    public void testT2922(String scriptIteration) throws CustomException, InterruptedException {
+    	if(driver == null) {
+    		driver = initializeDriver();
+    	}
+    	
+  /////////////////////Login As Hotline Worker/////////////////////////////////////////////////////
+    	
+    		Login login = new Login(driver, testCaseParam);
+    		login.processLoginNew(testCaseParam, scriptIteration,"1", "LOGIN_USER"); 
+         	
+        	Home home = new Home(driver, testCaseParam);
+    		home.navigateToAppMenuPage("Screenings",testCaseParam, scriptIteration, "1");
+       	
+        	ScreeningDetails screeningDetails= new ScreeningDetails(driver, testCaseParam);
+        	screeningDetails.clickNewScreening(testCaseParam,scriptIteration,"1");
+        	screeningDetails.enterScreeningDetails(testCaseParam, scriptIteration,"1");
+        	screeningDetails.submitScreeningDetails(testCaseParam, scriptIteration,"1");   
+
+        	ScreeningPerson screeningPerson = new ScreeningPerson(driver, testCaseParam);
+    		screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "1");
+        	screeningPerson.addScreeningPerson(testCaseParam, scriptIteration , "1");
+        	screeningPerson.addScreeningPerson(testCaseParam, scriptIteration , "2");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+          	
+        	ERRDoc errDoc= new ERRDoc(driver, testCaseParam);
+        	errDoc.generateERRDoc(testCaseParam,scriptIteration, "1");
+       	
+        	ScreeningTribalInquiry tribalInquiry=new ScreeningTribalInquiry(driver, testCaseParam);
+          	tribalInquiry.navigateToScreeningContactLogs(testCaseParam, scriptIteration, "1");
+        	tribalInquiry.addTribalInquiryAndCollaborationInfo(testCaseParam, scriptIteration, "1");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        	       	
+        	SupervisorReviewPromotion review= new SupervisorReviewPromotion(driver, testCaseParam);
+        	review.navigateToSupervisorReviewPromotion(testCaseParam, scriptIteration, "1");
+        	review.addSupervisorReviewPromotionInfo(testCaseParam, scriptIteration,"1");
+        	
+        	SubmitForApproval approval= new SubmitForApproval (driver,testCaseParam);
+        	approval.clickSubmitForApprovalInfo(testCaseParam, scriptIteration,"1");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        	    		
+       	/////////////////////As same Hotline Worker - create 2nd Record/////////////////////////////////////////////////////
+        	  	
+     	    home = new Home(driver, testCaseParam);
+    		home.navigateToAppMenuPage("Screenings",testCaseParam, scriptIteration, "1");
+        	
+        	ScreeningsPage screeningPage= new ScreeningsPage(driver, testCaseParam);
+     //   	screeningPage.navigateToLatestRecord(testCaseParam, scriptIteration,"1");
+
+        	screeningPage.navigateToListView("Screenings", "Recently Viewed",testCaseParam, scriptIteration, "1");
+        	screeningPage.navigateToLatestRecord(testCaseParam, scriptIteration,"1");
+         	    	
+        	screeningDetails= new ScreeningDetails(driver, testCaseParam);
+      	    screeningDetails.clickNewScreening(testCaseParam,scriptIteration,"1");
+        	screeningDetails.enterScreeningDetails(testCaseParam, scriptIteration,"1");
+        	screeningDetails.submitScreeningDetails(testCaseParam, scriptIteration,"2");   	
+  	
+        	screeningPerson = new ScreeningPerson(driver, testCaseParam);
+    		screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "1");
+        	screeningPerson.addScreeningPerson(testCaseParam, scriptIteration , "3");
+        	screeningPerson.addScreeningPerson(testCaseParam, scriptIteration , "4");
+       // 	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        	screeningPerson.addScreeningPerson(testCaseParam, scriptIteration , "5");
+        	screeningPerson.addScreeningPerson(testCaseParam, scriptIteration , "6");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+         	
+        	tribalInquiry=new ScreeningTribalInquiry(driver, testCaseParam);
+        	tribalInquiry.navigateToScreeningContactLogs(testCaseParam, scriptIteration, "1");
+        	tribalInquiry.addTribalInquiryAndCollaborationInfo(testCaseParam, scriptIteration, "2");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        	
+        	
+        	tribalInquiry.navigateToScreeningContactLogs(testCaseParam, scriptIteration, "1");
+        	tribalInquiry.addTribalInquiryAndCollaborationInfo(testCaseParam, scriptIteration, "3");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        
+        	review= new SupervisorReviewPromotion(driver, testCaseParam);
+        	review.navigateToSupervisorReviewPromotion(testCaseParam, scriptIteration, scriptIteration);
+        	review.addSupervisorReviewPromotionInfo(testCaseParam, scriptIteration,"2");
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+  	
+            ScreeningValidatePerson validatePerson = new ScreeningValidatePerson(driver, testCaseParam);
+            screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "1");
+            validatePerson.validatePersonDetails(testCaseParam, scriptIteration, "3");
+            SalesforceCommon.navigateToRecordURL(driver, "SCR");
+            screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "1");
+            validatePerson.validatePersonDetails(testCaseParam, scriptIteration, "4");
+            SalesforceCommon.navigateToRecordURL(driver, "SCR");
+            screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "1");
+            validatePerson.validatePersonDetails(testCaseParam, scriptIteration, "5");
+            SalesforceCommon.navigateToRecordURL(driver, "SCR");
+            screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "1");
+            validatePerson.validatePersonDetails(testCaseParam, scriptIteration, "6");
+            SalesforceCommon.navigateToRecordURL(driver, "SCR");
+          	
+        	ApprovalandAuditHistory screeningapproval = new ApprovalandAuditHistory(driver,testCaseParam);
+        	screeningapproval.navigateToApprovalAuditHistory(testCaseParam, scriptIteration, "1");
+        	screeningapproval.verifyHeaderColumnsInTable("Screening History", testCaseParam, scriptIteration, "1");
+        	
+        	ScreeningContactLog screeningContact = new ScreeningContactLog(driver, testCaseParam);
+    		screeningContact.navigateToScreeningContactLogs(testCaseParam, scriptIteration, "1");
+    		screeningContact.addScreeningContactLog(testCaseParam, scriptIteration, "1");
+    		SalesforceCommon.navigateToRecordURL(driver, "SCR");
+      	
+    		//ERR Doc
+    		errDoc= new ERRDoc(driver, testCaseParam);
+        	errDoc.generateERRDoc(testCaseParam,scriptIteration, "2");
+         	
+        	Documents document= new Documents(driver, testCaseParam);
+        	document.navigateToDocuments(testCaseParam, scriptIteration, "1");
+        	document.deleteDocument(testCaseParam, scriptIteration, "1");
+       	
+        	errDoc= new ERRDoc(driver, testCaseParam);
+        	errDoc.generateERRDoc(testCaseParam,scriptIteration, "3");
+           
+        	approval= new SubmitForApproval (driver,testCaseParam);
+        	approval.clickSubmitForApprovalInfo(testCaseParam, scriptIteration,"2");
+      	       	
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        	
+        	/////////////////////// Search 1st record ///////////////////////////////////////
+          	
+        	home= new Home(driver,testCaseParam);
+        	home.searchRecord(testCaseParam,scriptIteration, "1");
+        	
+        
+        	screeningDetails= new ScreeningDetails(driver, testCaseParam);
+        	screeningDetails.navigateToScreeningDetails(testCaseParam,scriptIteration,"1");
+           	screeningDetails.verifyScreeningDetailsNonEditable(testCaseParam, scriptIteration,"1");
+           	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+            
+        	screeningPerson = new ScreeningPerson(driver, testCaseParam);
+        	screeningPerson.navigateToScreeningPersons(testCaseParam, scriptIteration, "2");
+        	  
+        	validatePerson = new ScreeningValidatePerson(driver, testCaseParam);
+           	validatePerson.validatePersonDetails(testCaseParam, scriptIteration, "3");
+     //   	validatePerson.editCreatedScreeningPerson(testCaseParam, scriptIteration, "9"); 
+        	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+        	
+     	
+        	Documents doucments= new Documents(driver, testCaseParam);
+        	doucments.navigateToDocuments(testCaseParam, scriptIteration,"2");
+         	doucments.uploadDocument(testCaseParam, scriptIteration, "2");  	
+         	SalesforceCommon.navigateToRecordURL(driver, "SCR");
+         	
+         	doucments.navigateToDocuments(testCaseParam, scriptIteration,"3");
+         	doucments.downloadDocument(testCaseParam, scriptIteration, "3");
+
+    	//recall the record
+    	RecallAndResubmitRecord recall= new RecallAndResubmitRecord(driver,testCaseParam);
+		recall.clickRecallAndResubmitRecordInfo(testCaseParam, scriptIteration, "1");
+
+    	Logout objLogout = new Logout(driver, testCaseParam);
+    	objLogout.processLogout(testCaseParam,scriptIteration,"1");  
+  	
+   	////////////////////////////////supervisor login 2nd Record Approval//////////////////////////////////////////////////////////
+        login = new Login(driver, testCaseParam);
+    	login.processLoginNew(testCaseParam, scriptIteration,"1", "HL_SUPERVISOR");
+    	
+       	home.clickOnNotificationForApproval("SCR_ID", testCaseParam,scriptIteration, "1");
+    	home.searchRecord(testCaseParam,scriptIteration, "2");
+    	
+    	screeningapproval.navigateToApprovalAuditHistory(testCaseParam, scriptIteration, "1");
+    	
+     	ScreeningApproval screeningApproval = new ScreeningApproval(driver,testCaseParam);
+     	screeningApproval.approveScreening(testCaseParam,scriptIteration,"1");
+     	
+     	document.navigateToDocuments(testCaseParam, scriptIteration, "1");
+     	document.validateDocumentList(testCaseParam, scriptIteration, scriptIteration, "1");
+     	
+    	home.clickOnNotificationForApproval("SCR_ID", testCaseParam,scriptIteration, "2");
+
+        home.verifyNotification(testCaseParam, "Approval request for the screening is approved", SalesforceConstants.getConstantValue("SCR_ID2"));
+       
+       
+     	/////////////////////////Hotline supervisor login and recall the 1st record//////////////////////////////////////////////////////////
+     	
+     	
+    	home = new Home(driver, testCaseParam);
+    	home.navigateToAppMenuPage("Screenings", testCaseParam, scriptIteration, "1");
+    	home.searchRecord(testCaseParam,scriptIteration, "1");
+    	
+    	screeningDetails.navigateToScreeningDetails(testCaseParam, scriptIteration, "1");
+		screeningDetails.editCallerType(testCaseParam, scriptIteration, "3");
+		screeningDetails.submitScreeningDetails(testCaseParam, scriptIteration, "3");
+		SalesforceCommon.navigateToRecordURL(driver, "SCR");
+		
+	    objLogout = new Logout(driver, testCaseParam);
+     	objLogout.processLogout(testCaseParam,scriptIteration,"1");   
+    
+
+    }
+
+    @DataProvider (name = "data-provider")
+    public String[] dpMethod(Method method){
+    	return setScriptIterationFlag(fileName,moduleName, method.getName());
+   
+    }
+    
+    
+    @AfterMethod
+    public void tearDownMethod()
+    {
+    	endTestCase(testCaseParam);
+    	quitDriver(driver);  	
+    }
+}
