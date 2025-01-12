@@ -25,6 +25,8 @@ import cares.cwds.salesforce.utilities.web.Webkeywords;
 
 import static java.lang.String.format;
 
+import java.io.IOException;
+
 public class FolioNewCase {
 private static final Logger logger =LoggerFactory.getLogger(FolioNewCase.class.getName());
 
@@ -112,7 +114,7 @@ public WebElement newPerson;
 //////////////////////////////////////////////////////Method Start ===>  createNewCase6Jan2025///////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public void createNewCase(TestCaseParam testCaseParam,String scriptIteration, String pomIteration) throws Exception  {
+public void createNewCase(TestCaseParam testCaseParam,String scriptIteration, String pomIteration) throws IOException  {
 PageDetails action = new PageDetails();
 LocalDateTime startTime= LocalDateTime.now();
 action.setPageActionName("Create New Case");
@@ -165,4 +167,3 @@ Webkeywords.instance().click(driver,  newPerson,testCaseDataSd.get("NEW_PERSON")
             }
  }
 }
-
