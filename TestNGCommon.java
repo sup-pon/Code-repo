@@ -1,6 +1,7 @@
 
 package cares.cwds.salesforce.utilities.testng;
 
+import org.testng.annotations.Test;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -59,6 +60,7 @@ public class TestNGCommon {
 	static LocalDateTime startTime=LocalDateTime.now();
 	public static final String TESTRUN_ID  = ""; 
 
+	@Test
 	@BeforeSuite
 	public void testRunSetUp() throws InterruptedException
 	{
@@ -97,6 +99,7 @@ public class TestNGCommon {
 	}
 	
 	
+	@Test
 	@AfterSuite
 	public void testRunTearDown() throws InterruptedException
 	{
@@ -190,7 +193,7 @@ public class TestNGCommon {
 
 
 	public WebDriver initializeGridDriver() {
-		WebDriver driver = null;
+		WebDriver Driver = null;
 		DesiredCapabilities cap= new  DesiredCapabilities();
 		cap.setCapability("browserVersion", "130.0");
 		cap.setCapability("browserName", "chrome");
@@ -200,12 +203,12 @@ public class TestNGCommon {
 		options.addArguments("--disable-dev-shm-usage");
 
 		try {
-			driver=new RemoteWebDriver(new URL("https://seleniumgrid.qatools.cdicares.net"),cap);
+			Driver=new RemoteWebDriver(new URL("https://seleniumgrid.qatools.cdicares.net"),cap);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return driver;
+		return Driver;
 	}
 
 	public WebDriver initializeWebDriver() {
@@ -228,9 +231,9 @@ public class TestNGCommon {
 
 		WebDriver driverNew= new ChromeDriver(options);
 		driverNew.manage().deleteAllCookies();
-		// Further actions based on runInHeadlessMode setting
+		
 		if (TestRunSettings.getCaptureUIPerformance().equalsIgnoreCase("Yes")){
-			//driverNew = PageLoadTimingInterceptor.createProxy(driverNew);
+			
 		}
 		return driverNew;
 	}
