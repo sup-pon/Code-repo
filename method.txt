@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="tests" thread-count="3" verbose="2">
+    <!-- Define parallel execution at the suite level for tests -->
+    
+    <test name="T2926">
+        <classes>
+            <class name="uitests.testng.milestone3.T2926">
+                <methods>
+                    <include name="testT2926" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="T2901">
+        <classes>
+            <class name="uitests.testng.milestone3.T2901">
+                <methods>
+                    <include name="testT2901" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+</suite>
+-----------
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="tests" thread-count="3" verbose="2">
     <!-- Force thread pool size -->
     <parameter name="suitethreadpoolsize" value="3"/>
     
