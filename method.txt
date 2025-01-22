@@ -1,3 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="tests" thread-count="3" verbose="2">
+    <!-- Force thread pool size -->
+    <parameter name="suitethreadpoolsize" value="3"/>
+    
+    <test name="T2926" parallel="methods">
+        <classes>
+            <class name="uitests.testng.milestone3.T2926">
+                <methods>
+                    <include name="testT2926" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="T2901" parallel="methods">
+        <classes>
+            <class name="uitests.testng.milestone3.T2901">
+                <methods>
+                    <include name="testT2901" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+  
+</suite>
+
 String [] hlWorker = {"AutoTitleIV_Placement_State_V1SIT@osi.ca.gov","Cares@401347563679012"};
 		loginMap.put("TitleIVStaffCDSSPlacement", hlWorker);
 		String [] dlPlacer = {"Auto_TitleIV_Staff_Placer@osi.ca.gov","Cares@401347563625"};
