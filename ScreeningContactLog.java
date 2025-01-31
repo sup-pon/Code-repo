@@ -1,11 +1,11 @@
 package cares.cwds.salesforce.pom.screening;
 
-
-import java.time.LocalDateTime;
+import static java.lang.String.format;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,19 +21,23 @@ import cares.cwds.salesforce.constants.ScreenConstants;
 import cares.cwds.salesforce.utilities.common.TestRunSettings;
 import cares.cwds.salesforce.utilities.common.Util;
 import cares.cwds.salesforce.utilities.reports.common.ReportCommon;
+import cares.cwds.salesforce.utilities.reports.common.ScreenshotCommon;
 import cares.cwds.salesforce.utilities.reports.extentmodel.PageDetails;
 import cares.cwds.salesforce.utilities.reports.model.TestCaseParam;
+import cares.cwds.salesforce.utilities.testng.TestNGCommon;
 import cares.cwds.salesforce.utilities.web.CommonOperations;
-import cares.cwds.salesforce.utilities.web.CustomException;
 import cares.cwds.salesforce.utilities.web.GenericLocators;
 import cares.cwds.salesforce.utilities.web.Webkeywords;
 
 public class ScreeningContactLog {
+	
 	private static final Logger logger =LoggerFactory.getLogger(ScreeningContactLog.class.getName());
 	private WebDriver driver;
 	ReportCommon exceptionDetails = new ReportCommon();
 	Util util = new Util();
 	GenericLocators genericLocators = null;
+	TestNGCommon testngCommon = new TestNGCommon();
+	TestCaseParam testCaseParam = (TestCaseParam) testngCommon.getTestAttribute("testCaseParam");
 
 	String moduleName = ModuleConstants.SCREENING;
 	String screenName = ScreenConstants.SCREENINGCONTACTLOG;
@@ -47,17 +51,18 @@ public class ScreeningContactLog {
 	
 	public ScreeningContactLog(){ }
 	
-	public ScreeningContactLog(WebDriver wDriver,TestCaseParam testCaseParam)
+	public ScreeningContactLog(WebDriver wDriver)
 	{
-		initializePage(wDriver,testCaseParam);
+		initializePage(wDriver);
 	}
 
-	public void initializePage(WebDriver wDriver,TestCaseParam testCaseParam) 
+	public void initializePage(WebDriver wDriver) 
     {
+		logger.info(this.getClass().getName());
     	 driver = wDriver;
          PageFactory.initElements(driver, this);
          ReportCommon testStepLogDetails = new ReportCommon(); 
-         testStepLogDetails.logModuleAndScreenDetails(testCaseParam, moduleName, screenName);
+         testStepLogDetails.logModuleAndScreenDetails( moduleName, screenName);
          genericLocators = new GenericLocators(wDriver);
     }
 	
@@ -130,142 +135,164 @@ public class ScreeningContactLog {
 	public WebElement scheduledNextInPersonContactVisit;
 	
 	@FindBy(how = How.XPATH, using = "//*[text()='On Behalf of Child(ren) and Participants']")
-	public WebElement OnBehalfChildAndParticipantHeader;
+	public WebElement onBehalfChildAndParticipantHeader;
 	
-	public void navigateToScreeningContactLogs(TestCaseParam testCaseParam, String scriptIteration, String pomIteration) throws CustomException  {
+	@FindBy(how = How.XPATH, using = "(//span[text()='View All']//parent::a)[2]")
+	public WebElement viewAllButton;
+	
+	@FindBy(how = How.XPATH, using = "//span[text()='Tribal Inquiry & Collaboration']//parent::a")
+	public WebElement tribalTitle;
+	
+	@FindBy(how = How.XPATH, using = "//span[text()='Contact Note']//preceding-sibling::span")
+	public WebElement contactNoteRB;
+	
+	@FindBy(how = How.XPATH, using = "//div[text()='Next']")
+	public WebElement nextBtn;
+
+	@FindBy(how = How.XPATH, using = "(//*[@title='Details'])[3]")
+	public WebElement detailsHeader;
+	
+	 String contactLogLink = "(//span[text()='%s']/../../../..//parent::a)[2]";
+	
+	public void navigateToScreeningContactLogs( String scriptIteration, String pomIteration)   {
 
 		PageDetails action = new PageDetails();
-		LocalDateTime startTime= LocalDateTime.now();
+	
 		action.setPageActionName("Navigate to Screening Contact Logs");
 		action.setPageActionDescription("Navigate to Screening Contact Logs");
-		try {
+	
 
-			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, TestRunSettings.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(), TestRunSettings.getTestDataMappingFileName() ,TestRunSettings.getTestDataMappingSheetNameSd(),scriptIteration,pomIteration);
+			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, testCaseParam.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(), TestRunSettings.getTestDataMappingFileName() ,TestRunSettings.getTestDataMappingSheetNameSd(),scriptIteration,pomIteration);
 			String contactLogsTabTD = testCaseDataSd.get(CONTACT_LOGS_TAB).get(0);
 			Webkeywords.instance().scrollUpPageToTheTop(driver);
 			Webkeywords.instance().waitElementToBeVisible(driver,  genericLocators.button(driver, CONTACT_LOGS,contactLogsTabTD));
-			Webkeywords.instance().click(driver, genericLocators.link(driver, CONTACT_LOGS,contactLogsTabTD),contactLogsTabTD, testCaseParam,action);
-		}
-		catch (Exception e)
-		{
-			logger.error("Failed == {}",action.getPageActionDescription());
-			exceptionDetails.logExceptionDetails(driver, testCaseParam, action.getPageActionName(), action.getPageActionDescription(), startTime,e);
-			
-		}
+			Webkeywords.instance().click(driver, genericLocators.link(driver, CONTACT_LOGS,contactLogsTabTD),contactLogsTabTD,action);
 	}
 	
 
-	public void addScreeningContactLog(TestCaseParam testCaseParam,String scriptIteration, String pomIteration) throws CustomException{
+	public void addScreeningContactLog(String scriptIteration, String pomIteration) {
 		PageDetails action = new PageDetails();
-		LocalDateTime startTime= LocalDateTime.now();
 		action.setPageActionName("Add Screening Contact");
 		action.setPageActionDescription("Add Screening Contact");
 		
-		try {
-
-			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, TestRunSettings.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(),
+			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, testCaseParam.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(),
 					TestRunSettings.getTestDataMappingFileName() ,TestRunSettings.getTestDataMappingSheetNameSd(),scriptIteration,pomIteration);
 			String onBehalfOfChildTD = testCaseDataSd.get("ON_BEHALF_OF_CHILD").get(0);
 			String onBehalfOfchild = SalesforceConstants.getConstantValue(onBehalfOfChildTD);
 			String participant = SalesforceConstants.getConstantValue(testCaseDataSd.get("PARTICIPANT").get(0));
+			
+			Webkeywords.instance().scrollUpPageToTheTop(driver);
 			Webkeywords.instance().waitElementToBeVisible(driver, contactLogNewButton);
-			Webkeywords.instance().click(driver,contactLogNewButton,testCaseDataSd.get("NEW_BTN").get(0), testCaseParam, action);
+			Webkeywords.instance().click(driver,contactLogNewButton,testCaseDataSd.get("NEW_BTN").get(0), action);
+			Webkeywords.instance().click(driver,contactNoteRB,testCaseDataSd.get("NEW_BTN").get(0), action);
+			Webkeywords.instance().click(driver,nextBtn,testCaseDataSd.get("NEW_BTN").get(0), action);
+			Webkeywords.instance().pause();
 			
 			Webkeywords.instance().waitElementToBeVisible(driver, onBehalfOfChild);
 			Webkeywords.instance().waitElementClickable(driver, onBehalfOfChild);
-			Webkeywords.instance().click(driver, participantTD,"", testCaseParam,action);
-			Webkeywords.instance().click(driver, genericLocators.link(driver,participant ,testCaseDataSd.get("PARTICIPANT").get(0)),"", testCaseParam,action);
+			Webkeywords.instance().click(driver, participantTD,"",action);
+			Webkeywords.instance().click(driver, genericLocators.link(driver,participant ,testCaseDataSd.get("PARTICIPANT").get(0)),"",action);
 			
-			Webkeywords.instance().click(driver, onBehalfOfChild,"", testCaseParam,action);
-			Webkeywords.instance().click(driver, genericLocators.link(driver,onBehalfOfchild ,onBehalfOfChildTD),onBehalfOfChildTD, testCaseParam,action);
+			Webkeywords.instance().click(driver, onBehalfOfChild,"",action);
+			Webkeywords.instance().click(driver, genericLocators.link(driver,onBehalfOfchild ,onBehalfOfChildTD),onBehalfOfChildTD,action);
 
-			Webkeywords.instance().selectDropdownValueByElement(driver,contactStatus,contactStatusList,testCaseDataSd.get("CONTACT_STATUS").get(0),"Contact Status",testCaseParam,action);
-			Webkeywords.instance().selectDropdownValueByElement(driver,contactPurpose,contactPurposeList,testCaseDataSd.get("CONTACT_PURPOSE").get(0),CONTACT_PURPOSE,testCaseParam,action);
+			Webkeywords.instance().selectDropdownValueByElement(driver,contactStatus,contactStatusList,testCaseDataSd.get("CONTACT_STATUS").get(0),"Contact Status",action);
+			Webkeywords.instance().selectDropdownValueByElement(driver,contactPurpose,contactPurposeList,testCaseDataSd.get("CONTACT_PURPOSE").get(0),CONTACT_PURPOSE,action);
 			
 			Webkeywords.instance().scrollIntoViewElement(driver,participantTD );
-			Webkeywords.instance().selectDropdownValueByElement(driver,contactTopic,contactTopicList,testCaseDataSd.get("CONTACT_TOPIC").get(0),"Contact Topic",testCaseParam,action);
+			Webkeywords.instance().selectDropdownValueByElement(driver,contactTopic,contactTopicList,testCaseDataSd.get("CONTACT_TOPIC").get(0),"Contact Topic",action);
 			
-			Webkeywords.instance().setDateText(driver, contactStartDateTime, CommonOperations.getDate("M/d/yyyy",testCaseDataSd.get("CONTACT_START_DATETIME").get(0)), testCaseParam, action);
+			Webkeywords.instance().setDateText(driver, contactStartDateTime, CommonOperations.getDate("M/d/yyyy",testCaseDataSd.get("CONTACT_START_DATETIME").get(0)), action);
 			
 			
-			Webkeywords.instance().selectDropdownValueByElement(driver, methoddd, methodList,testCaseDataSd.get("METHOD").get(0),METHOD,testCaseParam,action);
-			Webkeywords.instance().selectDropdownValueByElement(driver, locationdd, locationList, testCaseDataSd.get("LOCATION").get(0),LOCATION,testCaseParam,action);
+			Webkeywords.instance().selectDropdownValueByElement(driver, methoddd, methodList,testCaseDataSd.get("METHOD").get(0),METHOD,action);
+			Webkeywords.instance().selectDropdownValueByElement(driver, locationdd, locationList, testCaseDataSd.get("LOCATION").get(0),LOCATION,action);
 			
-			Webkeywords.instance().click(driver, scheduledNextInPersonContactVisit, testCaseDataSd.get("SCHEDULED_NEXT_IN_PERSON_CONTACT_VISIT").get(0), testCaseParam, action);
-			Webkeywords.instance().setText(driver, genericLocators.textarea(driver, "Notes",testCaseDataSd.get("NOTES").get(0)), util.getRandom(testCaseDataSd.get("NOTES").get(0)), testCaseParam, action);
-			Webkeywords.instance().setText(driver, genericLocators.textarea(driver, "Narrative",testCaseDataSd.get("NARRATIVE").get(0)), util.getRandom(testCaseDataSd.get("NARRATIVE").get(0)), testCaseParam, action);
-			
-			Webkeywords.instance().click(driver, genericLocators.button(driver, "Save",testCaseDataSd.get("SAVE_BTN").get(0)), testCaseDataSd.get("SAVE_BTN").get(0), testCaseParam, action);
+			Webkeywords.instance().click(driver, scheduledNextInPersonContactVisit, testCaseDataSd.get("SCHEDULED_NEXT_IN_PERSON_CONTACT_VISIT").get(0), action);
+			Webkeywords.instance().setText(driver, genericLocators.textarea(driver, "Notes",testCaseDataSd.get("NOTES").get(0)), util.getRandom(testCaseDataSd.get("NOTES").get(0)), action);
+			Webkeywords.instance().setText(driver, genericLocators.textarea(driver, "Narrative",testCaseDataSd.get("NARRATIVE").get(0)), util.getRandom(testCaseDataSd.get("NARRATIVE").get(0)), action);
+			ScreenshotCommon.captureFullPageScreenShot(driver, moduleName+"-"+screenName);			
+			Webkeywords.instance().click(driver, genericLocators.button(driver, "Save",testCaseDataSd.get("SAVE_BTN").get(0)), testCaseDataSd.get("SAVE_BTN").get(0), action);
 			Webkeywords.instance().pause();
 			Webkeywords.instance().waitElementToBeVisible(driver, scrContactLogID);
 
 			SalesforceConstants.setConstantValue("SCR CONTACTID", scrContactLogID.getText());
-			Webkeywords.instance().waitElementToBeVisible(driver,OnBehalfChildAndParticipantHeader );
-			}
-		catch (Exception e)
-		{
-			logger.error("Failed == {}",action.getPageActionDescription());
-			exceptionDetails.logExceptionDetails(driver, testCaseParam, action.getPageActionName(), action.getPageActionDescription(), startTime,e);
-		}
+			Webkeywords.instance().waitElementToBeVisible(driver,onBehalfChildAndParticipantHeader );
     }
 	
-	public void validateContactLogFields(TestCaseParam testCaseParam, String scriptIteration, String pomIteration) throws CustomException {
+	public void validateContactLogFields( String scriptIteration, String pomIteration)  {
 		PageDetails action = new PageDetails();
-		LocalDateTime startTime= LocalDateTime.now();
+	
 		action.setPageActionName("verifying Screening Contact logs Fields");
 		action.setPageActionDescription("verifying Screening Contact logs Fields");
 		
-		try {
-			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, TestRunSettings.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(),
+	
+			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, testCaseParam.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(),
 					TestRunSettings.getTestDataMappingFileName() ,TestRunSettings.getTestDataMappingSheetNameSd(),scriptIteration,pomIteration);
 				
-				Webkeywords.instance().verifyElementDisplayed(driver, contactStatus, testCaseDataSd.get("CONTACTSTATUS_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, contactPurpose, testCaseDataSd.get("CONTACTPURPOSE_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, contactStartDateTime, testCaseDataSd.get("CONTACTSTARTDATE_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, contactEndDateTime, testCaseDataSd.get("CONTACTENDDATE_VERIFY").get(0), testCaseParam, action);
+				Webkeywords.instance().verifyElementDisplayed(driver, contactStatus, testCaseDataSd.get("CONTACTSTATUS_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, contactPurpose, testCaseDataSd.get("CONTACTPURPOSE_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, contactStartDateTime, testCaseDataSd.get("CONTACTSTARTDATE_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, contactEndDateTime, testCaseDataSd.get("CONTACTENDDATE_VERIFY").get(0), action);
 
-				Webkeywords.instance().verifyElementDisplayed(driver, onBehalfOfChild,testCaseDataSd.get("ONBEHALFOFCHILD_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, participantTD, testCaseDataSd.get("PARTICIPANT_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, staffPerson, testCaseDataSd.get("STAFFPERSON_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, otherStaffPresent, testCaseDataSd.get("OTHERSTAFFPRESENT_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, methoddd, testCaseDataSd.get("METHOD_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, locationdd, testCaseDataSd.get("LOCATION_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, genericLocators.textarea(driver, "Narrative",testCaseDataSd.get("NARRATIVE_VERIFY").get(0)), testCaseDataSd.get("NARRATIVE_VERIFY").get(0), testCaseParam, action);
+				Webkeywords.instance().verifyElementDisplayed(driver, onBehalfOfChild,testCaseDataSd.get("ONBEHALFOFCHILD_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, participantTD, testCaseDataSd.get("PARTICIPANT_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, staffPerson, testCaseDataSd.get("STAFFPERSON_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, otherStaffPresent, testCaseDataSd.get("OTHERSTAFFPRESENT_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, methoddd, testCaseDataSd.get("METHOD_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, locationdd, testCaseDataSd.get("LOCATION_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, genericLocators.textarea(driver, "Narrative",testCaseDataSd.get("NARRATIVE_VERIFY").get(0)), testCaseDataSd.get("NARRATIVE_VERIFY").get(0), action);
 				
-				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "System Information",testCaseDataSd.get("SYSTEMINFO_VERIFY").get(0)), testCaseDataSd.get("SYSTEMINFO_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Created By",testCaseDataSd.get("CREATEDBY_VERIFY").get(0)), testCaseDataSd.get("CREATEDBY_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Created Date",testCaseDataSd.get("CREATEDDATE_VERIFY").get(0)), testCaseDataSd.get("CREATEDDATE_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Modified Date",testCaseDataSd.get("MODIFIEDDATE_VERIFY").get(0)), testCaseDataSd.get("MODIFIEDDATE_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Last Modified By",testCaseDataSd.get("LASTMODIFIEDBY_VERIFY").get(0)), testCaseDataSd.get("LASTMODIFIEDBY_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyTextDisplayed(driver, documentSubTab , testCaseDataSd.get("DOCUMENTS_TAB_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyTextDisplayed(driver, mandatoryFieldLocation , testCaseDataSd.get("LOCATION_FIELD_ERROR").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, genericLocators.button(driver, "Cancel",testCaseDataSd.get("CANCEL_VERIFY").get(0)), testCaseDataSd.get("CANCEL_VERIFY").get(0), testCaseParam, action);
-				Webkeywords.instance().verifyElementDisplayed(driver, genericLocators.button(driver, "Save",testCaseDataSd.get("SAVE_VERIFY").get(0)), testCaseDataSd.get("SAVE_VERIFY").get(0), testCaseParam, action);
+				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "System Information",testCaseDataSd.get("SYSTEMINFO_VERIFY").get(0)), testCaseDataSd.get("SYSTEMINFO_VERIFY").get(0), action);
+				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Created By",testCaseDataSd.get("CREATEDBY_VERIFY").get(0)), testCaseDataSd.get("CREATEDBY_VERIFY").get(0), action);
+				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Created Date",testCaseDataSd.get("CREATEDDATE_VERIFY").get(0)), testCaseDataSd.get("CREATEDDATE_VERIFY").get(0), action);
+				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Modified Date",testCaseDataSd.get("MODIFIEDDATE_VERIFY").get(0)), testCaseDataSd.get("MODIFIEDDATE_VERIFY").get(0), action);
+				Webkeywords.instance().verifyTextDisplayed(driver, genericLocators.textOnPage(driver, "Last Modified By",testCaseDataSd.get("LASTMODIFIEDBY_VERIFY").get(0)), testCaseDataSd.get("LASTMODIFIEDBY_VERIFY").get(0), action);
+				Webkeywords.instance().verifyTextDisplayed(driver, documentSubTab , testCaseDataSd.get("DOCUMENTS_TAB_VERIFY").get(0), action);
+				Webkeywords.instance().verifyTextDisplayed(driver, mandatoryFieldLocation , testCaseDataSd.get("LOCATION_FIELD_ERROR").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, genericLocators.button(driver, "Cancel",testCaseDataSd.get("CANCEL_VERIFY").get(0)), testCaseDataSd.get("CANCEL_VERIFY").get(0), action);
+				Webkeywords.instance().verifyElementDisplayed(driver, genericLocators.button(driver, "Save",testCaseDataSd.get("SAVE_VERIFY").get(0)), testCaseDataSd.get("SAVE_VERIFY").get(0), action);
 		
-		} catch (Exception e) {
-				logger.error("Failed == {} ", action.getPageActionDescription());
-				exceptionDetails.logExceptionDetails(driver, testCaseParam, action.getPageActionName(), action.getPageActionDescription(), startTime,e);
-			}
+	
 	}
 	
-	public void verfiyContactLogRecord(TestCaseParam testCaseParam) throws CustomException  {
+	public void verfiyContactLogRecord() {
 		PageDetails action = new PageDetails();
-		LocalDateTime startTime= LocalDateTime.now();
+	
 		action.setPageActionName("Verify Contact Log Record");
 		action.setPageActionDescription("Verify Contact Log Record");
-		try {
+	
 
 		    String actuaContactLogCreated = SalesforceConstants.getConstantValue("SCR_CONTACTID");
 			String expectedContactLogRecordID = contactRecordId.getText();
 			
 			Assert.assertEquals(actuaContactLogCreated, expectedContactLogRecordID);				
-		}
-		catch (Exception e)
-		{
-			logger.error("Failed == {}",action.getPageActionDescription());
-			exceptionDetails.logExceptionDetails(driver, testCaseParam, action.getPageActionName(), action.getPageActionDescription(), startTime,e);
-			
-		}
+	
 	}
+	
+	public void editContactLog(String scriptIteration, String pomIteration) {
+		PageDetails action = new PageDetails();
+		action.setPageActionName("Verify Contact Log Record");
+		action.setPageActionDescription("Verify Contact Log Record");
+	
+			
+			Map<String, ArrayList<String>>	testCaseDataSd = util.getScreenTCData(screenName, testCaseParam.getTestNGTestMethodName(),TestRunSettings.getTestDataPath(), TestRunSettings.getTestDataMappingFileName() ,TestRunSettings.getTestDataMappingSheetNameSd(),scriptIteration,pomIteration);
+			String contactPersonId = SalesforceConstants.getConstantValue(testCaseDataSd.get("SCR_CONTACT_ID").get(0));
+			String saveBtn = testCaseDataSd.get("SAVE_BTN").get(0);
+			Webkeywords.instance().scrollIntoViewElement(driver, viewAllButton);
+			Webkeywords.instance().click(driver, viewAllButton, testCaseDataSd.get("VIEWALL").get(0), action);
+			Webkeywords.instance().scrollUpPageToTheTop(driver);
+			
+			String formatedXpath = format(contactLogLink,contactPersonId);
+			WebElement contactIdXpath = driver.findElement(By.xpath(formatedXpath));
+			
+			Webkeywords.instance().jsClick(driver,  contactIdXpath, testCaseDataSd.get("SCR_CONTACT_ID").get(0),action);
+			Webkeywords.instance().pause();
+			Webkeywords.instance().selectDropdownValueByElement(driver,contactPurpose,contactPurposeList,testCaseDataSd.get("CONTACT_PURPOSE").get(0),CONTACT_PURPOSE,action);
+			Webkeywords.instance().click(driver,genericLocators.button(driver, "Save",saveBtn),saveBtn, action);			
+
+		
+	}
+
 	
 }
