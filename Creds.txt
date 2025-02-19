@@ -1,0 +1,26 @@
+String[] hlworker = {"Auto_Hsupervisor1_ContraCosta_V1_SIT@nomail.ca.gov","Cares@401347563793981"};
+		loginMap.put("HLSupervisorContraCosta", hlworker);
+		
+		String[] hlworker1 = {"auto_erworker3_contracosta_v1sit@osi.ca.gov","Cares@401347563780"};
+		loginMap.put("ERWorkerContraCosta", hlworker1);
+		
+		String[] hlworker2 = {"auto_supervisor3_contracosta_v1sit@osi.ca.gov","Cares@401347563799"};
+		loginMap.put("ERSupervisorContraCosta", hlworker2);
+		
+		String[] hlworker3 = {"Autorfa_clericalworker_Ccosta_v1SIT@osi.ca.gov","Cares@401347563679"};
+		loginMap.put("ClericalWorkerContraCosta", hlworker3);
+		
+		String[] hlworker4 = {"Auto_Hstaff1_ContraCosta_V1_SIT@nomail.ca.gov","Cares@401347563793981"};
+		loginMap.put("HLWorkerContraCosta", hlworker4);
+		
+		String[] hlworker5 = {"Autohotline155_supervisor_contracosta_V1SIT@osi.ca.gov","Cares@401347563679"};
+		loginMap.put("HLSupervisorContraCosta2", hlworker5);
+
+String[] hlworker6 = {"autocmworker451_CCosta_V1SIT@osi.ca.gov","Cares@401347563680"};
+		loginMap.put("CMWorkerContraCosta", hlworker6);
+		
+		String[] hlworker7 = {"AutoCMSupervisor4201_Contracosta_V1SIT@osi.ca.gov","Cares@401347563679"};
+		loginMap.put("CMSupervisorContraCosta", hlworker7);
+		
+		String[] hlworker8 = {"AutoCMManager4201_Contracosta_V1SIT@osi.ca.gov","Cares@401347563679"};
+		loginMap.put("CMManagerContraCosta", hlworker8);
